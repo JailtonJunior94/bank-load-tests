@@ -1,0 +1,9 @@
+{
+  "name": "bank-load-tests",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "faker-br": "^0.4.1"
+  }
+}

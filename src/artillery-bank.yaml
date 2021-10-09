@@ -1,0 +1,41 @@
+config:
+  target: "https:/"
+  processor: ./functions.js
+  phases:
+    - name: Inicialização
+      duration: 60
+      arrivalRate: 2
+      rampTo: 5
+
+    - name: Adicionando mais carga
+      duration: 60
+      arrivalRate: 10
+      
+    - name: Diminuindo carga
+      duration: 240
+      arrivalRate: 2
+      
+    - name: Finalização
+      duration: 120
+      arrivalRate: 5
+      rampTo: 10
+
+scenarios:
+  - name: Create User and Loan
+    flow:
+      - function: createUser
+      - post:
+          url: "/clientes.jailtonjunior.site/api/v1/customers"
+          json:
+            document: '{{ cpf }}'
+            name: '{{ firstName }} {{ lastName }}'
+            birthDay: '{{ birthDay }}'
+
+      - post:
+          url: "/emprestimos.jailtonjunior.site/api/v1/loans"
+          json:
+            document: '{{ cpf }}'
+            income: '{{ income }}'
+            value: '{{ value }}'
+            quantity: '{{ quantity }}'
+            rate: '{{ rate }}'
